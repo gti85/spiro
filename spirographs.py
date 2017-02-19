@@ -11,6 +11,7 @@ import turtle
 from PIL import Image
 from datetime import datetime
 from fractions import gcd
+from appJar import gui
 
 
 # class that draws a spirograph
@@ -203,10 +204,30 @@ def saveDrawing():
     # show the turtle cursor
     # turtle.showturtle()
 
+def open_gui():
+    app = gui()
+
+    app.addLabel("title", "Create some spirographs", 0, 0, 2)  # Row 0,Column 0,Span 2
+    app.addButtons(["Create", "Reboot"], press, 1, 0, 2) # Row 1,Column 0,Span 2
+
+    app.go()
+
+def press(btn):
+    if btn == "Create":
+        create_spirographs()
+    elif btn == "Reboot":
+        turtle.onkey(spiroAnim.restart, "space")
+
+
 # main() function
 def main():
     # use sys.argv if needed
+    open_gui()
+
+
+def create_spirographs():
     print('generating spirograph...')
+
     # create parser
     descStr = """This program draws spirographs using the Turtle module.
     When run with no arguments, this program draws random spirographs.
@@ -227,8 +248,9 @@ def main():
     # parse args
     args = parser.parse_args()
 
-    # set the width of the drawing window to 80 percent of the screen width
+    # set the height and width of the drawing window to 80 percent of the screen width
     turtle.setup(width=0.8)
+    turtle.setup(height=0.8)
 
     # set the cursor shape to turtle
     turtle.shape('turtle')
@@ -252,7 +274,7 @@ def main():
         spiro.draw()
     else:
         # create the animator object
-        spiroAnim = SpiroAnimator(150)
+        spiroAnim = SpiroAnimator(3)
         # add a key handler to toggle the turtle cursor
         turtle.onkey(spiroAnim.toggleTurtles, "t")
         # add a key handler to restart the animation
