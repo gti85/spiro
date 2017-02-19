@@ -114,7 +114,7 @@ class SpiroAnimator:
     # constructor
     def __init__(self, N):
         # set the timer value in milliseconds
-        self.deltaT = 10
+        self.deltaT = 0
         # get the window dimensions
         self.width = turtle.window_width()
         self.height = turtle.window_height()
@@ -135,8 +135,10 @@ class SpiroAnimator:
         R = random.randint(50, min(width, height)//2)
         r = random.randint(10, 9*R//10)
         l = random.uniform(0.1, 0.9)
-        xc = random.randint(-width//2, width//2)
-        yc = random.randint(-height//2, height//2)
+        #xc = random.randint(-width//2, width//2)
+        #yc = random.randint(-height//2, height//2)
+        xc = 0
+        yc = 0
         col = (random.random(),
                 random.random(),
                 random.random())
@@ -246,7 +248,7 @@ def main():
         spiro.draw()
     else:
         # create the animator object
-        spiroAnim = SpiroAnimator(1)
+        spiroAnim = SpiroAnimator(10)
         # add a key handler to toggle the turtle cursor
         turtle.onkey(spiroAnim.toggleTurtles, "t")
         # add a key handler to restart the animation
