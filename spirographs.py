@@ -1,5 +1,5 @@
 """
-Create spirographs
+Create a single spirograph
 """
 
 import sys
