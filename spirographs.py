@@ -23,7 +23,7 @@ class Spiro:
         # set the cursor shape
         self.t.shape('turtle')
         # set the step in degrees
-        self.step = 5
+        self.step = random.randint(5,30)
         # set the drawing complete flag
         self.drawingComplete = False
 
@@ -59,6 +59,7 @@ class Spiro:
     def restart(self):
         # set the flag
         self.drawingComplete = False
+        turtle.tracer(0,0)
         # show the turtle
         self.t.showturtle()
         # go to first point
@@ -127,8 +128,10 @@ class SpiroAnimator:
             spiro = Spiro(*rparams)
             self.spiros.append(spiro)
         # call timer
+        turtle.tracer(0,0)
         turtle.ontimer(self.update, self.deltaT)
-
+        
+        
     # generate random parameters
     def genRandomParams(self):
         width, height = self.width, self.height
@@ -168,7 +171,8 @@ class SpiroAnimator:
                 nComplete += 1
         # restart if all spiros are complete
         if nComplete == len(self.spiros):
-            self.restart()
+            # self.restart()
+            print ("Complete.")
         # call the timer
         turtle.ontimer(self.update, self.deltaT)
 
@@ -197,7 +201,7 @@ def saveDrawing():
     img = Image.open(fileName + '.eps')
     img.save(fileName + '.png', 'png')
     # show the turtle cursor
-    turtle.showturtle()
+    # turtle.showturtle()
 
 # main() function
 def main():
@@ -248,7 +252,7 @@ def main():
         spiro.draw()
     else:
         # create the animator object
-        spiroAnim = SpiroAnimator(10)
+        spiroAnim = SpiroAnimator(150)
         # add a key handler to toggle the turtle cursor
         turtle.onkey(spiroAnim.toggleTurtles, "t")
         # add a key handler to restart the animation
