@@ -126,8 +126,8 @@ class SpiroAnimator:
             # set the spiro parameters
             spiro = Spiro(*rparams)
             self.spiros.append(spiro)
-            # call timer
-            turtle.ontimer(self.update, self.deltaT)
+        # call timer
+        turtle.ontimer(self.update, self.deltaT)
 
     # generate random parameters
     def genRandomParams(self):
