@@ -23,8 +23,9 @@ class Spiro:
         self.t = turtle.Turtle()
         # set the cursor shape
         self.t.shape('turtle')
-        # set the step in degrees
-        self.step = random.randint(5,30)
+        # hide the turtle
+        self.t.hideturtle()
+
         # set the drawing complete flag
         self.drawingComplete = False
 
@@ -54,6 +55,8 @@ class Spiro:
         self.t.color(*col)
         # store the current angle
         self.a = 0
+        # set the step in degrees
+        self.step = random.randint(5,180)
 
 
     # restart the drawing
@@ -61,8 +64,6 @@ class Spiro:
         # set the flag
         self.drawingComplete = False
         turtle.tracer(0,0)
-        # show the turtle
-        self.t.showturtle()
         # go to first point
         self.t.up()
         R, k, l = self.R, self.k, self.l
@@ -82,8 +83,6 @@ class Spiro:
             x = R*((1-k)*math.cos(a) + l*k*math.cos((1-k)*a/k))
             y = R*((1-k)*math.sin(a) - l*k*math.sin((1-k)*a/k))
             self.t.setpos(self.xc + x, self.yc + y)
-        # drawing is now done so hide the turtle cursor
-        self.t.hideturtle()
 
 
     # update by one step
@@ -103,8 +102,6 @@ class Spiro:
         # if drawing is complete, set the flag
         if self.a >= 360*self.nRot:
             self.drawingComplete = True
-            # drawing is now done so hide the turtle cursor
-            self.t.hideturtle()
 
     # clear everything
     def clear(self):
@@ -176,14 +173,6 @@ class SpiroAnimator:
             print ("Complete.")
         # call the timer
         turtle.ontimer(self.update, self.deltaT)
-
-    # toggle turtle cursor on and off
-    def toggleTurtles(self):
-        for spiro in self.spiros:
-            if spiro.t.isvisible():
-                spiro.t.hideturtle()
-            else:
-                spiro.t.showturtle()
 
 
 # save drawings as PNG files
@@ -274,9 +263,7 @@ def create_spirographs():
         spiro.draw()
     else:
         # create the animator object
-        spiroAnim = SpiroAnimator(3)
-        # add a key handler to toggle the turtle cursor
-        turtle.onkey(spiroAnim.toggleTurtles, "t")
+        spiroAnim = SpiroAnimator(150)
         # add a key handler to restart the animation
         turtle.onkey(spiroAnim.restart, "space")
 
